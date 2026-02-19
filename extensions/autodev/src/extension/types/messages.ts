@@ -29,7 +29,10 @@ export type ExtensionMessage =
 	| { type: 'template:saved'; name: string }
 	| { type: 'template:reset:done'; name: string; content: string }
 	// Analytics dashboard messages
-	| { type: 'analytics:data'; data: AnalyticsData; projects: Project[]; selectedProjectId: string | null };
+	| { type: 'analytics:data'; data: AnalyticsData; projects: Project[]; selectedProjectId: string | null }
+	// Sidebar panel messages
+	| { type: 'sidebar:state'; tickets: Ticket[]; projects: Project[] }
+	| { type: 'sidebar:progress'; ticketId: string; pct: number };
 
 // ── Webview → Extension Host ──────────────────────────────────────────────────
 
@@ -61,4 +64,12 @@ export type WebviewMessage =
 	// Template editor messages
 	| { type: 'template:load'; name: string }
 	| { type: 'template:save'; name: string; content: string }
-	| { type: 'template:reset'; name: string };
+	| { type: 'template:reset'; name: string }
+	// Sidebar panel messages
+	| { type: 'sidebar:newTicket' }
+	| { type: 'sidebar:openBoard' }
+	| { type: 'sidebar:openDetail'; ticketId: string; tab?: string }
+	| { type: 'sidebar:execute'; ticketId: string }
+	| { type: 'sidebar:cancel'; ticketId: string }
+	| { type: 'sidebar:delete'; ticketId: string }
+	| { type: 'sidebar:merge'; ticketId: string };

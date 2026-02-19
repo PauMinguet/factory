@@ -57,6 +57,10 @@ const entries = [
 		entryPoints: [path.join(root, 'src/webview/analytics/index.tsx')],
 		outfile: path.join(root, 'out/webview/analytics.js'),
 	},
+	{
+		entryPoints: [path.join(root, 'src/webview/sidebar/index.tsx')],
+		outfile: path.join(root, 'out/webview/sidebar.js'),
+	},
 ];
 
 // Ensure output directory exists

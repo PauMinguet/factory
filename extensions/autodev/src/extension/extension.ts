@@ -19,6 +19,7 @@ import { StatusBarProvider } from './providers/statusBarProvider';
 import { TicketDetailProvider } from './providers/ticketDetailProvider';
 import { TemplateEditorProvider } from './providers/templateEditorProvider';
 import { AnalyticsViewProvider } from './providers/analyticsViewProvider';
+import { SidebarViewProvider } from './providers/sidebarViewProvider';
 
 const execFileAsync = promisify(execFile);
 
@@ -67,6 +68,14 @@ export function activate(context: vscode.ExtensionContext): void {
 	const templateEditorProvider = new TemplateEditorProvider(context, getTemplatesDir(), bundledTemplatesDir);
 	const analyticsProvider = new AnalyticsViewProvider(context, db);
 	new StatusBarProvider(db, orchestrator, context);
+
+	// ── Sidebar panel ──────────────────────────────────────────────────────────
+	const sidebarProvider = new SidebarViewProvider(context, db, orchestrator, output, ticketDetailProvider, kanbanProvider);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider('autodev.sidebar', sidebarProvider, {
+			webviewOptions: { retainContextWhenHidden: true },
+		}),
+	);
 
 	// ── Orchestrator event forwarding ─────────────────────────────────────────
 	orchestrator.on('ticket:status', (ticketId: string, status: string) => {
@@ -192,6 +201,7 @@ export function activate(context: vscode.ExtensionContext): void {
 			'Open Board',
 		);
 		kanbanProvider.sendState();
+		sidebarProvider.sendState();
 		if (action === 'Create Ticket') {
 			kanbanProvider.open();
 			await kanbanProvider.createTicket(project.id);
@@ -382,6 +392,7 @@ export function activate(context: vscode.ExtensionContext): void {
 			db!.analytics.record('ticket_merged', { branch: ticket.branch }, ticket.id, project.id);
 			vscode.window.showInformationMessage(`AutoDev: Merged "${ticket.branch}" successfully.`);
 			kanbanProvider.sendState();
+			sidebarProvider.sendState();
 		} catch (err) {
 			const msg = err instanceof Error ? err.message : String(err);
 			vscode.window.showErrorMessage(`AutoDev: Merge failed. ${msg}`);

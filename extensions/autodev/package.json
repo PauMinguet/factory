@@ -128,7 +128,14 @@
 					"items": {
 						"type": "string"
 					},
-					"default": ["Edit", "Write", "Read", "Glob", "Grep", "Bash"],
+					"default": [
+						"Edit",
+						"Write",
+						"Read",
+						"Glob",
+						"Grep",
+						"Bash"
+					],
 					"description": "%config.claudeAllowedTools%"
 				},
 				"autodev.dataDir": {
@@ -221,6 +228,24 @@
 					"description": "%config.git.cleanAfterDays%"
 				}
 			}
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "autodev-sidebar",
+					"title": "AutoDev",
+					"icon": "resources/autodev-icon.svg"
+				}
+			]
+		},
+		"views": {
+			"autodev-sidebar": [
+				{
+					"type": "webview",
+					"id": "autodev.sidebar",
+					"name": "AutoDev"
+				}
+			]
 		}
 	},
 	"dependencies": {
@@ -234,6 +259,7 @@
 		"@types/react": "^18.3.0",
 		"@types/react-dom": "^18.3.0",
 		"@types/uuid": "^10.0.0",
+		"@types/vscode": "^1.85.0",
 		"esbuild": "^0.21.5",
 		"mocha": "^10.0.0",
 		"react": "^18.3.0",

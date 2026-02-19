@@ -1,0 +1,267 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+/* ── Base reset ────────────────────────────────────────────────────────────── */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-font-size, 12px);
+	color: var(--vscode-foreground);
+	background: var(--vscode-sideBar-background);
+	overflow-x: hidden;
+}
+
+/* ── Sidebar container ─────────────────────────────────────────────────────── */
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	padding: 6px 0 12px;
+}
+
+/* ── Stats row ─────────────────────────────────────────────────────────────── */
+
+.stats-row {
+	display: flex;
+	gap: 12px;
+	padding: 4px 10px 6px;
+	font-size: 11px;
+	color: var(--vscode-descriptionForeground);
+}
+
+.stat {
+	white-space: nowrap;
+}
+
+/* ── Action buttons ────────────────────────────────────────────────────────── */
+
+.action-row {
+	display: flex;
+	gap: 6px;
+	padding: 0 8px 6px;
+}
+
+.action-btn {
+	flex: 1;
+	padding: 4px 6px;
+	font-size: 11px;
+	font-family: inherit;
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.action-btn:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+/* ── Divider ───────────────────────────────────────────────────────────────── */
+
+.divider {
+	height: 1px;
+	background: var(--vscode-sideBarSectionHeader-border, var(--vscode-panel-border));
+	margin: 4px 0;
+}
+
+/* ── Needs Attention section ───────────────────────────────────────────────── */
+
+.attention-section {
+	padding: 4px 0;
+}
+
+.attention-header {
+	padding: 4px 10px 3px;
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	color: var(--vscode-notificationsWarningIcon-foreground, #cca700);
+	text-transform: uppercase;
+}
+
+/* ── Column sections ───────────────────────────────────────────────────────── */
+
+.columns {
+	flex: 1;
+	overflow-y: auto;
+}
+
+.column-section {
+	margin-bottom: 1px;
+}
+
+.column-header {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	width: 100%;
+	padding: 3px 10px;
+	background: none;
+	border: none;
+	color: var(--vscode-sideBarSectionHeader-foreground, var(--vscode-foreground));
+	font-size: 11px;
+	font-family: inherit;
+	font-weight: 600;
+	cursor: pointer;
+	text-align: left;
+	user-select: none;
+}
+
+.column-header:hover {
+	background: var(--vscode-list-hoverBackground);
+}
+
+.chevron {
+	font-size: 9px;
+	width: 10px;
+	flex-shrink: 0;
+	color: var(--vscode-descriptionForeground);
+}
+
+.column-label {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.column-count {
+	font-weight: normal;
+	color: var(--vscode-descriptionForeground);
+	font-size: 10px;
+	flex-shrink: 0;
+}
+
+/* ── Ticket rows ───────────────────────────────────────────────────────────── */
+
+.column-tickets {
+	padding: 0 0 2px 10px;
+}
+
+.ticket-row {
+	display: flex;
+	flex-direction: column;
+	padding: 3px 6px 3px 8px;
+	border-radius: 3px;
+	cursor: pointer;
+	border-left: 2px solid transparent;
+}
+
+.ticket-row:hover {
+	background: var(--vscode-list-hoverBackground);
+	border-left-color: var(--vscode-focusBorder);
+}
+
+.ticket-row-main {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
+}
+
+.ticket-title {
+	flex: 1;
+	font-size: 11px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: var(--vscode-foreground);
+}
+
+.ticket-actions {
+	display: flex;
+	gap: 2px;
+	flex-shrink: 0;
+	opacity: 0;
+	transition: opacity 0.1s;
+}
+
+.ticket-row:hover .ticket-actions {
+	opacity: 1;
+}
+
+/* Attention rows: always show actions */
+.attention-section .ticket-actions {
+	opacity: 1;
+}
+
+/* ── Icon buttons ─────────────────────────────────────────────────────────── */
+
+.icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	background: none;
+	border: none;
+	border-radius: 2px;
+	color: var(--vscode-foreground);
+	font-size: 11px;
+	cursor: pointer;
+	line-height: 1;
+}
+
+.icon-btn:hover {
+	background: var(--vscode-toolbar-hoverBackground);
+}
+
+.icon-btn.btn-danger:hover {
+	background: var(--vscode-inputValidation-errorBackground);
+	color: var(--vscode-inputValidation-errorForeground, #f48771);
+}
+
+/* ── Progress row ─────────────────────────────────────────────────────────── */
+
+.ticket-progress {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 2px;
+	padding-left: 0;
+	font-size: 10px;
+	color: var(--vscode-descriptionForeground);
+	font-family: var(--vscode-editor-font-family, monospace);
+}
+
+.elapsed {
+	color: var(--vscode-descriptionForeground);
+	min-width: 36px;
+}
+
+.progress-bar {
+	color: var(--vscode-progressBar-background, #007acc);
+	letter-spacing: -1px;
+	font-size: 9px;
+}
+
+.pct {
+	color: var(--vscode-descriptionForeground);
+	min-width: 28px;
+	text-align: right;
+}
+
+/* ── Attention section ticket rows ─────────────────────────────────────────── */
+
+.attention-section .ticket-row {
+	margin: 1px 8px;
+	border-left: 2px solid var(--vscode-notificationsWarningIcon-foreground, #cca700);
+}
+
+.attention-section .ticket-row:hover {
+	border-left-color: var(--vscode-focusBorder);
+}
