@@ -1,0 +1,591 @@
+/* AutoDev Studio — Kanban Board Styles
+   Uses VS Code CSS variables throughout — no hardcoded colors. */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-font-size);
+	overflow: hidden;
+}
+
+/* ── Board Layout ─────────────────────────────────────────────────────────── */
+
+.kanban-board {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.kanban-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 16px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-sideBar-background);
+	flex-shrink: 0;
+}
+
+.kanban-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.kanban-logo {
+	font-size: 18px;
+}
+
+.kanban-stats {
+	display: flex;
+	gap: 8px;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.stat {
+	padding: 2px 6px;
+	border-radius: 10px;
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+}
+
+.kanban-controls {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* ── Project Selector ─────────────────────────────────────────────────────── */
+
+.project-selector {
+	background: var(--vscode-dropdown-background);
+	color: var(--vscode-dropdown-foreground);
+	border: 1px solid var(--vscode-dropdown-border);
+	padding: 4px 8px;
+	border-radius: 2px;
+	font-size: 12px;
+	outline: none;
+	cursor: pointer;
+}
+
+.project-selector:focus {
+	outline: 1px solid var(--vscode-focusBorder);
+}
+
+/* ── New Ticket Button ────────────────────────────────────────────────────── */
+
+.new-ticket-btn {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border: none;
+	padding: 5px 12px;
+	border-radius: 2px;
+	font-size: 12px;
+	cursor: pointer;
+	font-family: inherit;
+	white-space: nowrap;
+}
+
+.new-ticket-btn:hover:not(:disabled) {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.new-ticket-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* ── Columns ──────────────────────────────────────────────────────────────── */
+
+.kanban-columns {
+	display: flex;
+	flex: 1;
+	gap: 8px;
+	padding: 12px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	min-height: 0;
+}
+
+.kanban-column {
+	display: flex;
+	flex-direction: column;
+	min-width: 180px;
+	max-width: 220px;
+	flex: 1;
+	background: var(--vscode-sideBar-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.kanban-column__header {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 10px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	background: var(--vscode-editor-background);
+	flex-shrink: 0;
+}
+
+.kanban-column__icon {
+	font-size: 13px;
+}
+
+.kanban-column__label {
+	flex: 1;
+	color: var(--vscode-descriptionForeground);
+}
+
+.kanban-column__count {
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+	border-radius: 8px;
+	padding: 1px 6px;
+	font-size: 10px;
+}
+
+.kanban-column__cards {
+	flex: 1;
+	overflow-y: auto;
+	padding: 6px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-height: 0;
+}
+
+.kanban-column__empty {
+	color: var(--vscode-disabledForeground);
+	font-size: 11px;
+	text-align: center;
+	padding: 16px 8px;
+	font-style: italic;
+}
+
+/* ── Ticket Cards ─────────────────────────────────────────────────────────── */
+
+.ticket-card {
+	background: var(--vscode-editor-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 4px;
+	padding: 8px 10px;
+	cursor: default;
+	transition: border-color 0.1s;
+}
+
+.ticket-card:hover {
+	border-color: var(--vscode-focusBorder);
+}
+
+.ticket-card--in_progress,
+.ticket-card--planning,
+.ticket-card--testing {
+	border-left: 3px solid var(--vscode-activityBarBadge-background, #007acc);
+}
+
+.ticket-card--completed {
+	border-left: 3px solid #89d185;
+}
+
+.ticket-card--failed {
+	border-left: 3px solid var(--vscode-editorError-foreground, #f14c4c);
+}
+
+.ticket-card--plan_review {
+	border-left: 3px solid var(--vscode-editorWarning-foreground, #cca700);
+}
+
+.ticket-card__header {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 4px;
+}
+
+.ticket-card__status-icon {
+	font-size: 12px;
+}
+
+.ticket-card__plan-badge {
+	font-size: 10px;
+	padding: 1px 5px;
+	border-radius: 10px;
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+	font-weight: 500;
+}
+
+.ticket-card__title {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.4;
+	margin-bottom: 4px;
+	word-break: break-word;
+}
+
+.ticket-card__branch {
+	font-size: 10px;
+	color: var(--vscode-gitDecoration-untrackedResourceForeground, #73c991);
+	font-family: var(--vscode-editor-font-family, monospace);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 4px;
+}
+
+.ticket-card__error {
+	font-size: 10px;
+	color: var(--vscode-editorError-foreground, #f14c4c);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 4px;
+}
+
+.ticket-card__elapsed {
+	font-size: 10px;
+	color: var(--vscode-descriptionForeground);
+	margin-bottom: 4px;
+}
+
+/* ── Progress Bar ─────────────────────────────────────────────────────────── */
+
+.ticket-card__progress {
+	height: 3px;
+	background: var(--vscode-progressBar-background, rgba(0, 122, 204, 0.2));
+	border-radius: 2px;
+	overflow: hidden;
+	margin-bottom: 4px;
+}
+
+.ticket-card__progress-fill {
+	height: 100%;
+	background: var(--vscode-activityBarBadge-background, #007acc);
+	border-radius: 2px;
+	transition: width 0.4s ease;
+}
+
+.ticket-card__actions {
+	display: flex;
+	gap: 4px;
+	margin-top: 6px;
+}
+
+.ticket-card__btn {
+	flex: 1;
+	padding: 3px 6px;
+	border: 1px solid var(--vscode-button-border, transparent);
+	border-radius: 2px;
+	font-size: 10px;
+	cursor: pointer;
+	font-family: inherit;
+}
+
+.ticket-card__btn--execute {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border-color: transparent;
+}
+
+.ticket-card__btn--execute:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.ticket-card__btn--cancel,
+.ticket-card__btn--delete {
+	background: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+}
+
+.ticket-card__btn--cancel:hover,
+.ticket-card__btn--delete:hover {
+	background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.ticket-card__btn--delete {
+	flex: 0 0 auto;
+}
+
+/* ── Empty State ──────────────────────────────────────────────────────────── */
+
+.empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	text-align: center;
+	padding: 40px;
+	gap: 12px;
+	color: var(--vscode-editor-foreground);
+}
+
+.empty-state__icon {
+	font-size: 48px;
+}
+
+.empty-state h2 {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.empty-state p {
+	color: var(--vscode-descriptionForeground);
+	font-size: 13px;
+	max-width: 400px;
+}
+
+.empty-state__hint {
+	font-size: 12px;
+}
+
+.empty-state kbd {
+	background: var(--vscode-keybindingLabel-background);
+	color: var(--vscode-keybindingLabel-foreground);
+	border: 1px solid var(--vscode-keybindingLabel-border);
+	border-radius: 3px;
+	padding: 1px 4px;
+	font-size: 11px;
+	font-family: var(--vscode-editor-font-family, monospace);
+}
+
+/* ── Drag and Drop ────────────────────────────────────────────────────────── */
+
+.ticket-card[draggable="true"] {
+	cursor: grab;
+}
+
+.ticket-card[draggable="true"]:active {
+	cursor: grabbing;
+	opacity: 0.7;
+}
+
+.kanban-column--drop-target {
+	border-color: var(--vscode-focusBorder);
+	background: var(--vscode-list-dropBackground, var(--vscode-sideBar-background));
+	box-shadow: 0 0 0 2px var(--vscode-focusBorder);
+}
+
+.kanban-column__empty--highlight {
+	color: var(--vscode-focusBorder);
+	font-style: normal;
+	font-weight: 500;
+}
+
+/* ── New Ticket Modal ─────────────────────────────────────────────────────── */
+
+.modal-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 20px;
+}
+
+.modal-dialog {
+	background: var(--vscode-editor-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 6px;
+	width: 600px;
+	max-width: 100%;
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 14px 18px 12px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	flex-shrink: 0;
+}
+
+.modal-title {
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.modal-close {
+	background: none;
+	border: none;
+	color: var(--vscode-foreground);
+	font-size: 16px;
+	cursor: pointer;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+.modal-close:hover { background: var(--vscode-list-hoverBackground); }
+
+.modal-body {
+	flex: 1;
+	overflow-y: auto;
+	padding: 16px 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.modal-field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.modal-label {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+}
+
+.modal-input,
+.modal-select,
+.modal-textarea {
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	border: 1px solid var(--vscode-input-border);
+	border-radius: 2px;
+	padding: 6px 8px;
+	font-size: 13px;
+	font-family: var(--vscode-font-family);
+	outline: none;
+}
+.modal-input:focus,
+.modal-select:focus,
+.modal-textarea:focus {
+	border-color: var(--vscode-focusBorder);
+}
+.modal-input--error {
+	border-color: var(--vscode-inputValidation-errorBorder);
+}
+
+.modal-textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+
+.modal-error {
+	font-size: 11px;
+	color: var(--vscode-errorForeground);
+}
+
+.modal-radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.modal-radio-option {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	padding: 6px 8px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+.modal-radio-option:hover { background: var(--vscode-list-hoverBackground); }
+.modal-radio-option--selected {
+	background: var(--vscode-list-activeSelectionBackground);
+	color: var(--vscode-list-activeSelectionForeground);
+	border-color: var(--vscode-focusBorder);
+}
+
+.modal-radio-option input[type="radio"] {
+	flex-shrink: 0;
+}
+
+.modal-radio-label {
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.modal-radio-desc {
+	font-size: 11px;
+	color: var(--vscode-descriptionForeground);
+}
+.modal-radio-option--selected .modal-radio-desc {
+	color: var(--vscode-list-activeSelectionForeground);
+	opacity: 0.8;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 12px 18px;
+	border-top: 1px solid var(--vscode-panel-border);
+	flex-shrink: 0;
+}
+
+.modal-btn {
+	padding: 6px 14px;
+	border: 1px solid var(--vscode-button-border, var(--vscode-panel-border));
+	background: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 12px;
+	font-family: var(--vscode-font-family);
+}
+.modal-btn:hover:not(:disabled) { background: var(--vscode-button-secondaryHoverBackground); }
+.modal-btn:disabled { opacity: 0.5; cursor: default; }
+
+.modal-btn--secondary {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border-color: var(--vscode-button-background);
+}
+.modal-btn--secondary:hover:not(:disabled) { background: var(--vscode-button-hoverBackground); }
+
+.modal-btn--primary {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+	border-color: var(--vscode-button-background);
+	font-weight: 600;
+}
+.modal-btn--primary:hover:not(:disabled) { background: var(--vscode-button-hoverBackground); }
+
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--vscode-scrollbarSlider-background);
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--vscode-scrollbarSlider-hoverBackground);
+}

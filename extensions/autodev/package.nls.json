@@ -1,0 +1,49 @@
+{
+	"displayName": "AutoDev",
+	"description": "Autonomous AI development — create tickets, generate plans, and execute them with Claude Code.",
+
+	"command.newTicket": "New Ticket",
+	"command.openBoard": "Open Board",
+	"command.showRunningJobs": "Show Running Jobs",
+	"command.viewTicketLogs": "View Ticket Logs",
+	"command.checkoutTicketBranch": "Checkout Ticket Branch",
+	"command.executeSelectedTicket": "Execute Selected Ticket",
+	"command.cancelJob": "Cancel Job",
+	"command.openAnalytics": "Open Analytics",
+	"command.editTemplates": "Edit Templates",
+	"command.addProject": "Add Project",
+	"command.mergeTicket": "Merge Ticket",
+	"command.createPR": "Create PR",
+	"command.projectSettings": "Project Settings",
+
+	"config.maxParallelJobs": "Maximum number of concurrent Claude Code sessions across all projects.",
+	"config.claudeCodePath": "Path to the Claude Code CLI binary. Leave empty to auto-detect from PATH.",
+	"config.claudePermissions": "How AutoDev handles Claude Code tool-use permission prompts. 'skip' passes --dangerously-skip-permissions (recommended for isolated worktrees). 'allowedTools' pre-approves specific tools via --allowedTools.",
+	"config.claudePermissions.skip": "Skip all permission prompts (--dangerously-skip-permissions). Recommended: each ticket runs in an isolated git worktree.",
+	"config.claudePermissions.allowedTools": "Pre-approve only the tools listed in 'Claude: Allowed Tools'. Claude will not be able to use any other tools.",
+	"config.claudeAllowedTools": "Tool names to pre-approve when 'Claude: Permissions' is set to 'allowedTools'. Ignored when set to 'skip'.",
+	"config.dataDir": "Directory for AutoDev data (database, logs, templates). Defaults to ~/.autodev-studio.",
+	"config.logRetentionDays": "Number of days to retain job log files before automatic cleanup.",
+
+	"config.notifications.onPlanReady": "Show a notification when a plan finishes generating and is ready for review.",
+	"config.notifications.onJobComplete": "Show a notification when a job completes successfully.",
+	"config.notifications.onJobFailed": "Show a notification when a job fails.",
+	"config.notifications.sound": "Play a sound with job completion and failure notifications.",
+
+	"config.defaults.planType": "Default plan type for new tickets.",
+	"config.planType.prd": "Full Product Requirements Document",
+	"config.planType.simple_plan": "Lightweight implementation plan",
+	"config.planType.analysis": "Codebase analysis (no code written)",
+	"config.planType.bug_fix": "Bug investigation and fix",
+	"config.planType.test": "Write tests for existing code",
+	"config.planType.direct": "Skip planning, execute immediately",
+	"config.planType.refactor": "Code improvement and cleanup",
+
+	"config.defaults.autoExecuteAfterPlan": "Automatically start execution after a plan is generated, skipping the review step.",
+	"config.defaults.maxRetries": "Maximum number of test-fix retry cycles after execution.",
+	"config.defaults.claudeMaxTurns": "Maximum number of agentic turns per Claude Code session.",
+
+	"config.git.branchPrefix": "Prefix for branches created by AutoDev.",
+	"config.git.autoCleanWorktrees": "Automatically remove worktrees for merged or deleted tickets.",
+	"config.git.cleanAfterDays": "Number of days after completion before a worktree is eligible for automatic cleanup."
+}

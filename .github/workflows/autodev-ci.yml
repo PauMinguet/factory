@@ -1,0 +1,68 @@
+name: AutoDev CI
+
+on:
+  push:
+    paths:
+      - 'extensions/autodev/**'
+      - '.github/workflows/autodev-ci.yml'
+  pull_request:
+    paths:
+      - 'extensions/autodev/**'
+      - '.github/workflows/autodev-ci.yml'
+
+jobs:
+  build:
+    name: Lint & Compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install root dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install extension dependencies
+        run: npm ci
+        working-directory: extensions/autodev
+
+      - name: Compile AutoDev extension
+        run: gulp compile-extension:autodev
+
+      - name: Check for TypeScript errors
+        run: npx tsc --noEmit
+        working-directory: extensions/autodev
+
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install root dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install extension dependencies
+        run: npm ci
+        working-directory: extensions/autodev
+
+      - name: Run unit tests
+        run: npm test
+        working-directory: extensions/autodev
+        # Unit tests are added in Sprint 1. This step will be a no-op until then.
+        continue-on-error: true

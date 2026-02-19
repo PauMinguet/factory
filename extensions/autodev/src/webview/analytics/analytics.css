@@ -1,0 +1,278 @@
+/* AutoDev Studio — Analytics Dashboard Styles
+   Uses VS Code CSS variables throughout — no hardcoded colors. */
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--vscode-editor-background);
+	color: var(--vscode-editor-foreground);
+	font-family: var(--vscode-font-family);
+	font-size: var(--vscode-font-size);
+	overflow-x: hidden;
+}
+
+/* ── Dashboard Layout ─────────────────────────────────────────────────────── */
+
+.analytics-dashboard {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.analytics-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 20px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-sideBar-background);
+	flex-shrink: 0;
+}
+
+.analytics-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.analytics-logo {
+	font-size: 18px;
+}
+
+.analytics-controls {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.project-filter {
+	background: var(--vscode-dropdown-background);
+	color: var(--vscode-dropdown-foreground);
+	border: 1px solid var(--vscode-dropdown-border);
+	padding: 4px 8px;
+	border-radius: 2px;
+	font-size: 12px;
+	outline: none;
+	cursor: pointer;
+}
+.project-filter:focus { outline: 1px solid var(--vscode-focusBorder); }
+
+.refresh-btn {
+	background: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+	border: none;
+	padding: 4px 10px;
+	border-radius: 2px;
+	font-size: 12px;
+	cursor: pointer;
+	font-family: inherit;
+}
+.refresh-btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+
+.analytics-body {
+	flex: 1;
+	overflow-y: auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	color: var(--vscode-descriptionForeground);
+	font-size: 13px;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────────── */
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.section-title {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--vscode-descriptionForeground);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* ── Stats Grid ───────────────────────────────────────────────────────────── */
+
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 12px;
+}
+
+@media (max-width: 700px) {
+	.stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat-card {
+	background: var(--vscode-sideBar-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 6px;
+	padding: 14px 16px;
+}
+
+.stat-card__value {
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1.1;
+	color: var(--vscode-editor-foreground);
+}
+
+.stat-card__label {
+	font-size: 11px;
+	color: var(--vscode-descriptionForeground);
+	margin-top: 4px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.stat-card__sub {
+	font-size: 10px;
+	color: var(--vscode-disabledForeground);
+	margin-top: 2px;
+}
+
+/* ── Bar Chart ────────────────────────────────────────────────────────────── */
+
+.bar-chart {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+	height: 140px;
+	padding: 0 4px;
+	background: var(--vscode-sideBar-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 6px;
+	padding: 12px 16px 0;
+}
+
+.bar-chart__col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 1;
+	height: 100%;
+}
+
+.bar-chart__bar-wrap {
+	flex: 1;
+	display: flex;
+	align-items: flex-end;
+	width: 100%;
+	padding-bottom: 4px;
+}
+
+.bar-chart__bar {
+	width: 100%;
+	background: var(--vscode-activityBarBadge-background, #007acc);
+	border-radius: 2px 2px 0 0;
+	min-height: 0;
+	transition: height 0.3s ease;
+}
+
+.bar-chart__count {
+	font-size: 10px;
+	color: var(--vscode-descriptionForeground);
+	min-height: 14px;
+	line-height: 14px;
+}
+
+.bar-chart__label {
+	font-size: 10px;
+	color: var(--vscode-descriptionForeground);
+	padding-bottom: 8px;
+}
+
+/* ── Jobs Table ───────────────────────────────────────────────────────────── */
+
+.empty-jobs {
+	color: var(--vscode-descriptionForeground);
+	font-size: 13px;
+	font-style: italic;
+	padding: 16px 0;
+}
+
+.jobs-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 12px;
+	background: var(--vscode-sideBar-background);
+	border: 1px solid var(--vscode-panel-border);
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.jobs-table th {
+	text-align: left;
+	padding: 8px 10px;
+	font-size: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+	color: var(--vscode-descriptionForeground);
+	border-bottom: 1px solid var(--vscode-panel-border);
+	background: var(--vscode-editor-background);
+	font-weight: 600;
+}
+
+.jobs-table td {
+	padding: 7px 10px;
+	border-bottom: 1px solid var(--vscode-panel-border);
+	color: var(--vscode-editor-foreground);
+	vertical-align: middle;
+}
+
+.jobs-table tr:last-child td {
+	border-bottom: none;
+}
+
+.jobs-table__row:hover td {
+	background: var(--vscode-list-hoverBackground);
+}
+
+.jobs-table__status {
+	font-size: 14px;
+	width: 28px;
+}
+
+.jobs-table__title {
+	max-width: 280px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-weight: 500;
+}
+
+.jobs-table__row--failed td {
+	color: var(--vscode-editorError-foreground, #f14c4c);
+}
+
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+	background: var(--vscode-scrollbarSlider-background);
+	border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--vscode-scrollbarSlider-hoverBackground);
+}

@@ -1,0 +1,8 @@
+src/**
+tsconfig.json
+tsconfig.webview.json
+tsconfig.test.json
+test/**
+.github/**
+scripts/**
+*.mts

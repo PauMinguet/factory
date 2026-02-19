@@ -1,0 +1,247 @@
+{
+	"name": "autodev",
+	"displayName": "%displayName%",
+	"description": "%description%",
+	"version": "1.0.0",
+	"publisher": "vscode",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"capabilities": {
+		"virtualWorkspaces": false,
+		"untrustedWorkspaces": {
+			"supported": false
+		}
+	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension/extension",
+	"scripts": {
+		"compile": "gulp compile-extension:autodev && node scripts/build-webview.mjs",
+		"compile:ext": "gulp compile-extension:autodev",
+		"compile:webview": "node scripts/build-webview.mjs",
+		"watch": "gulp watch-extension:autodev",
+		"watch:webview": "node scripts/build-webview.mjs --watch",
+		"test:compile": "tsc -p tsconfig.test.json --noEmit",
+		"test": "tsc -p tsconfig.test.json && mocha 'out-test/test/unit/**/*.test.js' --timeout 10000"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "autodev.newTicket",
+				"title": "%command.newTicket%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.openBoard",
+				"title": "%command.openBoard%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.showRunningJobs",
+				"title": "%command.showRunningJobs%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.viewTicketLogs",
+				"title": "%command.viewTicketLogs%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.checkoutTicketBranch",
+				"title": "%command.checkoutTicketBranch%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.executeSelectedTicket",
+				"title": "%command.executeSelectedTicket%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.cancelJob",
+				"title": "%command.cancelJob%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.openAnalytics",
+				"title": "%command.openAnalytics%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.editTemplates",
+				"title": "%command.editTemplates%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.addProject",
+				"title": "%command.addProject%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.mergeTicket",
+				"title": "%command.mergeTicket%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.createPR",
+				"title": "%command.createPR%",
+				"category": "AutoDev"
+			},
+			{
+				"command": "autodev.projectSettings",
+				"title": "%command.projectSettings%",
+				"category": "AutoDev"
+			}
+		],
+		"configuration": {
+			"title": "AutoDev",
+			"properties": {
+				"autodev.maxParallelJobs": {
+					"type": "number",
+					"default": 4,
+					"minimum": 1,
+					"maximum": 8,
+					"description": "%config.maxParallelJobs%"
+				},
+				"autodev.claudeCodePath": {
+					"type": "string",
+					"default": "",
+					"description": "%config.claudeCodePath%"
+				},
+				"autodev.claudePermissions": {
+					"type": "string",
+					"default": "skip",
+					"enum": [
+						"skip",
+						"allowedTools"
+					],
+					"enumDescriptions": [
+						"%config.claudePermissions.skip%",
+						"%config.claudePermissions.allowedTools%"
+					],
+					"description": "%config.claudePermissions%"
+				},
+				"autodev.claudeAllowedTools": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": ["Edit", "Write", "Read", "Glob", "Grep", "Bash"],
+					"description": "%config.claudeAllowedTools%"
+				},
+				"autodev.dataDir": {
+					"type": "string",
+					"default": "",
+					"description": "%config.dataDir%"
+				},
+				"autodev.logRetentionDays": {
+					"type": "number",
+					"default": 30,
+					"minimum": 1,
+					"description": "%config.logRetentionDays%"
+				},
+				"autodev.notifications.onPlanReady": {
+					"type": "boolean",
+					"default": true,
+					"description": "%config.notifications.onPlanReady%"
+				},
+				"autodev.notifications.onJobComplete": {
+					"type": "boolean",
+					"default": true,
+					"description": "%config.notifications.onJobComplete%"
+				},
+				"autodev.notifications.onJobFailed": {
+					"type": "boolean",
+					"default": true,
+					"description": "%config.notifications.onJobFailed%"
+				},
+				"autodev.notifications.sound": {
+					"type": "boolean",
+					"default": false,
+					"description": "%config.notifications.sound%"
+				},
+				"autodev.defaults.planType": {
+					"type": "string",
+					"default": "simple_plan",
+					"enum": [
+						"prd",
+						"simple_plan",
+						"analysis",
+						"bug_fix",
+						"test",
+						"direct",
+						"refactor"
+					],
+					"enumDescriptions": [
+						"%config.planType.prd%",
+						"%config.planType.simple_plan%",
+						"%config.planType.analysis%",
+						"%config.planType.bug_fix%",
+						"%config.planType.test%",
+						"%config.planType.direct%",
+						"%config.planType.refactor%"
+					],
+					"description": "%config.defaults.planType%"
+				},
+				"autodev.defaults.autoExecuteAfterPlan": {
+					"type": "boolean",
+					"default": false,
+					"description": "%config.defaults.autoExecuteAfterPlan%"
+				},
+				"autodev.defaults.maxRetries": {
+					"type": "number",
+					"default": 3,
+					"minimum": 0,
+					"maximum": 10,
+					"description": "%config.defaults.maxRetries%"
+				},
+				"autodev.defaults.claudeMaxTurns": {
+					"type": "number",
+					"default": 50,
+					"minimum": 1,
+					"maximum": 200,
+					"description": "%config.defaults.claudeMaxTurns%"
+				},
+				"autodev.git.branchPrefix": {
+					"type": "string",
+					"default": "autodev/",
+					"description": "%config.git.branchPrefix%"
+				},
+				"autodev.git.autoCleanWorktrees": {
+					"type": "boolean",
+					"default": true,
+					"description": "%config.git.autoCleanWorktrees%"
+				},
+				"autodev.git.cleanAfterDays": {
+					"type": "number",
+					"default": 7,
+					"minimum": 1,
+					"description": "%config.git.cleanAfterDays%"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"better-sqlite3": "^12.6.2",
+		"uuid": "^10.0.0"
+	},
+	"devDependencies": {
+		"@types/better-sqlite3": "^7.6.0",
+		"@types/mocha": "^10.0.0",
+		"@types/node": "22.x",
+		"@types/react": "^18.3.0",
+		"@types/react-dom": "^18.3.0",
+		"@types/uuid": "^10.0.0",
+		"esbuild": "^0.21.5",
+		"mocha": "^10.0.0",
+		"react": "^18.3.0",
+		"react-dom": "^18.3.0",
+		"recharts": "^2.12.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/microsoft/vscode.git"
+	}
+}
